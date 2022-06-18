@@ -2,25 +2,32 @@ package pointclub.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pointclub.service.restservice.RestService;
-import pointclub.service.userservice.UserService;
+import pointclub.entity.Message;
+import pointclub.repository.MessageRepository;
 
-@RestController()
+import java.util.List;
+
+@RestController
 @RequestMapping("message")
 public class MessageController {
     @Autowired
-    private RestService restService;
-    @Autowired
-    private UserService userService;
+    private MessageRepository messageRepository;
 
-
-    @GetMapping("test")
-    public void test() {
-        // restService.postToRoom(message, userService.getRoomOfUser(requestingUserId).getId());
+    @GetMapping
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
     }
 
-    @PostMapping("/send")
-    public void sendMessageToChat(@RequestParam String message, @RequestParam int requestingUserId) {
-        restService.postToRoom(message, userService.getRoomOfUser(requestingUserId).getId());
+    @PostMapping("/add")
+    public void addMessage(@RequestBody Message message) {
+        messageRepository.save(message);
+    }
+
+    @PostMapping("/remove")
+    public void removeMessage(@RequestBody Message message) {
+        if (message.getId() == 0) {
+            throw new RuntimeException("Message id cannot be null on delete");
+        }
+        messageRepository.deleteById(message.getId());
     }
 }
