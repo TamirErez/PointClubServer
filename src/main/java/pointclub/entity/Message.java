@@ -12,8 +12,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator="pointclub.message_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String content;
     @OneToOne
