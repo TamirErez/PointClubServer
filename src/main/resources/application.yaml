@@ -2,6 +2,8 @@ rest:
   path: http://localhost:8081
 
 spring:
+  jpa:
+    generate-ddl: true
   datasource:
     url: jdbc:postgresql://localhost:5432/pointclub?stringtype=unspecified
     username: postgres
