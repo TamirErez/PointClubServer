@@ -18,12 +18,12 @@ public class MessageController {
         return messageRepository.findAll();
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public void addMessage(@RequestBody Message message) {
         messageRepository.save(message);
     }
 
-    @PostMapping("/remove")
+    @PostMapping("remove")
     public void removeMessage(@RequestBody Message message) {
         if (message.getId() == 0) {
             throw new RuntimeException("Message id cannot be null on delete");

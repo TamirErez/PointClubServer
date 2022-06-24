@@ -18,12 +18,12 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public void addUser(@RequestBody User newUser) {
         userRepository.save(newUser);
     }
 
-    @PostMapping("/remove")
+    @PostMapping("remove")
     public void removeUser(@RequestBody User userToRemove) {
         if (userToRemove.getId() == 0) {
             throw new RuntimeException("User id cannot be null on delete");

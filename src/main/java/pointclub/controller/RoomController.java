@@ -22,12 +22,12 @@ public class RoomController {
         return roomRepository.findAll();
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public void addRoom(@RequestBody Room newRoom) {
         roomRepository.save(newRoom);
     }
 
-    @PostMapping("/remove")
+    @PostMapping("remove")
     public void removeRoom(@RequestBody Room roomToRemove) {
         if (roomToRemove.getId() == 0) {
             throw new RuntimeException("Room id cannot be null on delete");
