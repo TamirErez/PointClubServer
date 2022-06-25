@@ -5,14 +5,14 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Service;
 import pointclub.entity.User;
 import pointclub.repository.RoomRepository;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@DependsOn("fCMInitializer")
+@Service
 public class RestServiceImpl implements RestService {
 
     @Autowired

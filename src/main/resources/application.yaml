@@ -8,9 +8,6 @@ spring:
     url: jdbc:postgresql://ec2-3-248-121-12.eu-west-1.compute.amazonaws.com:5432/d5ht53uqk0dcpr
     username: uornsfnrbvcylc
     password: 57921e9cfabb7a9056d76ee5337321ade2ede1b38a0bd850125300bf9ec85817
-    maxActive: 2
-    maxIdle: 2
-    minIdle: 2
-    initialSize: 2
-    removeAbandoned: true
-
+    hikari:
+      maximum-pool-size: 2
+      minimum-idle: 2
