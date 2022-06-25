@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "messages", schema = "pointclub")
+@Table(name = "messages")
 @Getter
 @Setter
 @ToString

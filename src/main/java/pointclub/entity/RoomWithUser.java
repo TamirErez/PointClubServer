@@ -14,7 +14,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @IdClass(RoomWithUserPK.class)
-@Table(name = "users_rooms", schema = "pointclub")
+@Table(name = "users_rooms")
 public class RoomWithUser {
     @Id
     @Column(name = "room_id")

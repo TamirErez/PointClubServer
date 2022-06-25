@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "users", schema = "pointclub")
+@Table(name = "users")
 @Getter
 @Setter
 @ToString
@@ -23,8 +23,7 @@ public class User {
     @ManyToMany
     @JoinTable(name = "users_rooms",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "room_id"),
-            schema = "pointclub")
+            inverseJoinColumns = @JoinColumn(name = "room_id"))
     @ToString.Exclude
     private Set<Room> rooms = new LinkedHashSet<>();
 
