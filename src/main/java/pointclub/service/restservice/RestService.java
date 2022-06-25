@@ -1,7 +1,7 @@
 package pointclub.service.restservice;
 
-import java.net.http.HttpResponse;
+import com.google.firebase.messaging.FirebaseMessagingException;
 
 public interface RestService {
-    HttpResponse<String> postToRoom(String message, long id);
+    void postToRoom(String data, int id, String sender) throws FirebaseMessagingException;
 }
