@@ -23,6 +23,11 @@ public class UserController {
         userRepository.save(newUser);
     }
 
+    @PutMapping("updateToken")
+    public void updateToken(@RequestBody User user) {
+        userRepository.save(user);
+    }
+
     @PostMapping("remove")
     public void removeUser(@RequestBody User userToRemove) {
         if (userToRemove.getId() == 0) {
