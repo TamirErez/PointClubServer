@@ -19,8 +19,8 @@ public class UserController {
     }
 
     @PostMapping("add")
-    public void addUser(@RequestBody User newUser) {
-        userRepository.save(newUser);
+    public int addUser(@RequestBody User newUser) {
+        return userRepository.save(newUser).getId();
     }
 
     @PutMapping("updateToken")
