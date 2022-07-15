@@ -23,8 +23,8 @@ public class RoomController {
     }
 
     @PostMapping("add")
-    public void addRoom(@RequestBody Room newRoom) {
-        roomRepository.save(newRoom);
+    public int addRoom(@RequestBody Room newRoom) {
+        return roomRepository.save(newRoom).getId();
     }
 
     @PostMapping("remove")
@@ -36,8 +36,7 @@ public class RoomController {
     }
 
     @PostMapping("/addUser")
-    public void addUserToRoom(@RequestBody RoomWithUser roomWithUser)
-    {
+    public void addUserToRoom(@RequestBody RoomWithUser roomWithUser) {
         usersToRoomsRepository.save(roomWithUser);
     }
 }
