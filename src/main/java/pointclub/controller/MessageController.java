@@ -23,13 +23,14 @@ public class MessageController {
     }
 
     @PostMapping("add")
-    public void addMessage(@RequestBody Message message) {
-        messageRepository.save(message);
+    public int addMessage(@RequestBody Message message) {
+        int messageId = messageRepository.save(message).getId();
         try {
             restService.postToRoom(message.getContent(), message.getRoom().getId(), message.getSender().getName());
         } catch (FirebaseMessagingException e) {
             throw new RuntimeException(e);
         }
+        return messageId;
     }
 
     @PostMapping("remove")
