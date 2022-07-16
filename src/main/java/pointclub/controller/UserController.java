@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("add")
     public int addUser(@RequestBody User newUser) {
-        return userRepository.save(newUser).getId();
+        return userRepository.save(newUser).getServerId();
     }
 
     @PutMapping("updateToken")
@@ -30,9 +30,9 @@ public class UserController {
 
     @PostMapping("remove")
     public void removeUser(@RequestBody User userToRemove) {
-        if (userToRemove.getId() == 0) {
+        if (userToRemove.getServerId() == 0) {
             throw new RuntimeException("User id cannot be null on delete");
         }
-        userRepository.deleteById(userToRemove.getId());
+        userRepository.deleteById(userToRemove.getServerId());
     }
 }

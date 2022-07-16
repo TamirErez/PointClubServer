@@ -24,9 +24,9 @@ public class MessageController {
 
     @PostMapping("add")
     public int addMessage(@RequestBody Message message) {
-        int messageId = messageRepository.save(message).getId();
+        int messageId = messageRepository.save(message).getServerId();
         try {
-            restService.postToRoom(message.getContent(), message.getRoom().getId(), message.getSender().getName());
+            restService.postToRoom(message.getContent(), message.getRoom().getServerId(), message.getSender().getName());
         } catch (FirebaseMessagingException e) {
             throw new RuntimeException(e);
         }
@@ -35,9 +35,9 @@ public class MessageController {
 
     @PostMapping("remove")
     public void removeMessage(@RequestBody Message message) {
-        if (message.getId() == 0) {
+        if (message.getServerId() == 0) {
             throw new RuntimeException("Message id cannot be null on delete");
         }
-        messageRepository.deleteById(message.getId());
+        messageRepository.deleteById(message.getServerId());
     }
 }

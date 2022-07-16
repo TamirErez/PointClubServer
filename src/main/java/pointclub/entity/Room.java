@@ -17,7 +17,8 @@ import java.util.Set;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private int serverId;
     private String name;
 
     @ManyToMany
@@ -32,7 +33,7 @@ public class Room {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Room room = (Room) o;
-        return Objects.equals(id, room.id);
+        return Objects.equals(serverId, room.serverId);
     }
 
     @Override

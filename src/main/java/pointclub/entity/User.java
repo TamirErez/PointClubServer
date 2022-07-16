@@ -17,7 +17,8 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private int serverId;
     private String name;
     private String token;
 
@@ -33,7 +34,7 @@ public class User {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id);
+        return Objects.equals(serverId, user.serverId);
     }
 
     @Override
