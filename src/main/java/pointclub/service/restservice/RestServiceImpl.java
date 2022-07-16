@@ -21,10 +21,15 @@ public class RestServiceImpl implements RestService {
     @Override
     public void postToRoom(String messageContent, int id, String sender) throws FirebaseMessagingException {
 
+        Collection<String> userTokensOfRoom = getUserTokensOfRoom(id);
+        if (userTokensOfRoom.size() == 0) {
+            System.out.println("Error Posting Message to Room: No Tokens Were Found");
+            return;
+        }
         MulticastMessage message = MulticastMessage.builder()
                 .putData("content", messageContent)
                 .putData("sender", sender)
-                .addAllTokens(getUserTokensOfRoom(id))
+                .addAllTokens(userTokensOfRoom)
                 .build();
         BatchResponse response = FirebaseMessaging.getInstance().sendMulticast(message);
         System.out.println(response.getSuccessCount() + " messages were sent successfully");
