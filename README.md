@@ -16,4 +16,10 @@ The Main Server for the Official Point Club.
    4.2. psql  
    4.3. ALTER USER postgres WITH PASSWORD 'postgres';  
  5. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
-   
+ 
+ ## Allow Remote Connection to Postgre
+ 1. Find and edit pg_hba.conf by following the previous section
+ 2. Add the following lines at the end of the file:
+  host all all 0.0.0.0/0 trust   
+  host all all ::0/0 trust
+ 3. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
