@@ -14,15 +14,16 @@ The Main Server for the Official Point Club.
  2. Find pg_hba.conf, which is usually located at <i>/etc/postgresql/<number>/main</i>
  3. Edit it by changing all 'METHOD' options which are not peer, to 'trust'  
     The lines should look like: host all all 127.0.0.1/32 <b>trust</b>
- 4. Switch to user postgres and edit its password in psql:  
-   4.1. sudo -u -i postgres  
-   4.2. psql  
-   4.3. ALTER USER postgres WITH PASSWORD 'postgres';  
- 5. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
+ 4. Add user 'postgres' to sudoers by running <i>sudo usermod -aG sudo postgres</i>
+ 5. Switch to user postgres and edit its password in psql:  
+   5.1. sudo -u -i postgres  
+   5.2. psql  
+   5.3. ALTER USER postgres WITH PASSWORD 'postgres';  
+ 6. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
  
  ## Allow Remote Connection to Postgre
  1. Find and edit pg_hba.conf by following the previous section
- 2. Add the following lines at the end of the file:
+ 2. Add the following lines at the end of the file:  
   host all all 0.0.0.0/0 trust   
   host all all ::0/0 trust
  3. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
