@@ -22,8 +22,10 @@ The Main Server for the Official Point Club.
  6. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
  
  ## Allow Remote Connection to Postgre
- 1. Find and edit pg_hba.conf by following the previous section
- 2. Add the following lines at the end of the file:  
-  host all all 0.0.0.0/0 trust   
-  host all all ::0/0 trust
- 3. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
+  1. Find and edit pg_hba.conf by following the previous section
+  2. Add the following lines at the end of the file:  
+   host all all 0.0.0.0/0 trust   
+   host all all ::0/0 trust
+  3. Edit the file /etc/postgresql/<version>/main/postgresql.conf  
+     Uncomment the line containing 'listen_addresses', and change the value to '*'
+  4. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
