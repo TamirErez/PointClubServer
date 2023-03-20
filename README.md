@@ -11,8 +11,8 @@ The Main Server for the Official Point Club.
 
 ## Install Postgresql
  1. Run the command <i>sudo apt-get install postgresql</i>
- 2. Find pg_hba.conf, which is usually located at <i>/etc/postgresql/13/main</i>
- 3. Edit it by changing all 'md5' options to 'trust'  
+ 2. Find pg_hba.conf, which is usually located at <i>/etc/postgresql/<number>/main</i>
+ 3. Edit it by changing all 'METHOD' options which are not peer, to 'trust'  
     The lines should look like: host all all 127.0.0.1/32 <b>trust</b>
  4. Switch to user postgres and edit its password in psql:  
    4.1. sudo -u -i postgres  
