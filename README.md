@@ -6,6 +6,9 @@ The Main Server for the Official Point Club.
  2. Save all data as backup and pass it to users.
 
 # Set Up Server on Raspberry-Pi
+## Install Java 11
+ Run the command <i>sudo apt-get install openjdk-11-jdk</i>
+
 ## Install Postgresql
  1. Run the command <i>sudo apt-get install postgresql</i>
  2. Find pg_hba.conf, which is usually located at <i>/etc/postgresql/13/main</i>
