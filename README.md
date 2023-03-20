@@ -16,7 +16,7 @@ The Main Server for the Official Point Club.
     The lines should look like: host all all 127.0.0.1/32 <b>trust</b>
  4. Add user 'postgres' to sudoers by running <i>sudo usermod -aG sudo postgres</i>
  5. Switch to user postgres and edit its password in psql:  
-   5.1. sudo -u -i postgres  
+   5.1. sudo -i -u postgres  
    5.2. psql  
    5.3. ALTER USER postgres WITH PASSWORD 'postgres';  
  6. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
