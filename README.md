@@ -29,3 +29,37 @@ The Main Server for the Official Point Club.
   3. Edit the file /etc/postgresql/<version>/main/postgresql.conf  
      Uncomment the line containing 'listen_addresses', and change the value to '*'
   4. Restart postgres by running: <i>sudo systemctl restart postgresql</i>
+
+## NoIp
+### Overview
+NoIp allows free DNS of our server.  
+See https://www.noip.com/ for more info.  
+In order to periodically update the IP address used by our hostname, we need to run NoIp's client in the background.
+
+### Install NoIp  
+Run the following Commands:  
+ 1. cd /usr/local/src
+ 2. wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
+ 3. tar xzf noip-duc-linux.tar.gz
+ 4. cd noip-2.1.9-1
+ 5. apt install make
+ 6. apt install gcc
+ 7. make
+ 8. make install
+ 
+### Run NoIp on Startup
+ 1.Create the file /etc/systemd/system/noip2.service with the following content:  
+  ```
+  [Unit]
+  Description=noip2 service
+
+  [Service]
+  Type=forking
+  ExecStart=/usr/local/bin/noip2
+  Restart=always
+
+  [Install]
+  WantedBy=default.target
+  ```
+ 2. Run the command <i>sudo systemctl daemon-reload</i>
+ 3. Run the command <i>sudo systemctl enable noip2</i>
