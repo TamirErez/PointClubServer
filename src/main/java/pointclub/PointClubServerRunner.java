@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 
 @SpringBootApplication
 @EntityScan("pointclub.entity")
@@ -23,8 +23,8 @@ public class PointClubServerRunner {
 
     @SneakyThrows
     private static void initFirebase() {
-        FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/firebaseCredentials.json");
+        InputStream serviceAccount =
+                PointClubServerRunner.class.getClassLoader().getResourceAsStream("firebaseCredentials.json");
 
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
