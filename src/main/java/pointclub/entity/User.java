@@ -1,5 +1,6 @@
 package pointclub.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -26,6 +27,7 @@ public class User {
     @JoinTable(name = "users_rooms",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "room_id"))
+    @JsonIgnore
     @ToString.Exclude
     private Set<Room> rooms = new LinkedHashSet<>();
 
