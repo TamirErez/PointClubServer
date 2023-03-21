@@ -5,9 +5,8 @@ spring:
   jpa:
     generate-ddl: true
   datasource:
-    url: jdbc:postgresql://ec2-52-30-75-37.eu-west-1.compute.amazonaws.com:5432/d99mor5q4ik82r
-    username: mrjmlxninybxgp
-    password: 191ce3a6de8d01f864913a82a36df2e2d55ab83d85b0296730c1942f63e42e0c
+    username: postgres
+    password: postgres
     hikari:
       maximum-pool-size: 2
       minimum-idle: 2

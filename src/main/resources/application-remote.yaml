@@ -1,0 +1,6 @@
+rest:
+  path: http://pointclub.hopto.org:8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://pointclub.hopto.org:5432/postgres

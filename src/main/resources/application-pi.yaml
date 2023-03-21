@@ -1,0 +1,6 @@
+rest:
+  path: http://10.100.102.13:8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://10.100.102.13:5432/postgres
