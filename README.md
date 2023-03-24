@@ -65,3 +65,14 @@ Run the following Commands:
   ```
  2. Run the command <i>sudo systemctl daemon-reload</i>
  3. Run the command <i>sudo systemctl enable noip2</i>
+ 
+ ## Kubernetes
+ ### Install
+ Follow this guide https://ubuntu.com/kubernetes/install
+ 
+ ### Enable Kubernetes Dashboard
+ Follow this guide https://microk8s.io/docs/addon-dashboard
+ 
+ ### Disable Security for Kubernetes Dashboard
+ Follow this guide https://medium.com/@tejaswi.goudru/disable-authentication-https-in-kubernetes-dashboard-2fada478ce91
+ 
