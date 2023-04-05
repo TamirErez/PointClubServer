@@ -6,7 +6,7 @@
 
     <groupId>PointClub</groupId>
     <artifactId>PointClubServer</artifactId>
-    <version>0.0.12</version>
+    <version>0.0.16</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
