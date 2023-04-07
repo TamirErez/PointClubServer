@@ -25,8 +25,9 @@ public class MessageController {
     @PostMapping("add")
     public int addMessage(@RequestBody Message message) {
         int messageId = messageRepository.save(message).getServerId();
+        message.setServerId(messageId);
         try {
-            restService.postToRoom(message.getContent(), message.getRoom().getServerId(), message.getSender().getName());
+            restService.postToRoom(message);
         } catch (FirebaseMessagingException e) {
             throw new RuntimeException(e);
         }

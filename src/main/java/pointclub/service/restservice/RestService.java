@@ -1,7 +1,8 @@
 package pointclub.service.restservice;
 
 import com.google.firebase.messaging.FirebaseMessagingException;
+import pointclub.entity.Message;
 
 public interface RestService {
-    void postToRoom(String data, int id, String sender) throws FirebaseMessagingException;
+    void postToRoom(Message message) throws FirebaseMessagingException;
 }

@@ -1,8 +1,12 @@
 package pointclub.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "messages")
@@ -15,12 +19,16 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int serverId;
+
     private String content;
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "sender", referencedColumnName = "id")
     private User sender;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "room", referencedColumnName = "id")
     private Room room;
+
+    private Date sendTime;
 }
