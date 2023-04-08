@@ -1,14 +1,21 @@
 package pointclub.controller;
 
+import com.google.firebase.messaging.FirebaseMessagingException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pointclub.entity.Room;
 import pointclub.entity.RoomWithUser;
+import pointclub.entity.User;
 import pointclub.repository.RoomRepository;
+import pointclub.repository.UserRepository;
 import pointclub.repository.UsersToRoomsRepository;
+import pointclub.service.restservice.RestService;
 
 import java.util.List;
+import java.util.Set;
 
+@Slf4j
 @RestController
 @RequestMapping("room")
 public class RoomController {
@@ -16,6 +23,10 @@ public class RoomController {
     private RoomRepository roomRepository;
     @Autowired
     private UsersToRoomsRepository usersToRoomsRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RestService restService;
 
     @GetMapping
     public List<Room> getAllRooms() {
@@ -38,5 +49,18 @@ public class RoomController {
     @PostMapping("/addUser")
     public void addUserToRoom(@RequestBody RoomWithUser roomWithUser) {
         usersToRoomsRepository.save(roomWithUser);
+        try {
+            restService.sendUserToRoom(
+                    roomRepository.getById(roomWithUser.getRoom()),
+                    userRepository.getById(roomWithUser.getUser())
+            );
+        } catch (FirebaseMessagingException e) {
+            log.warn("Error sending user joined room", e);
+        }
+    }
+
+    @PostMapping("/users")
+    public Set<User> getRoomUsers(@RequestBody Room room) {
+        return roomRepository.getById(room.getServerId()).getUsers();
     }
 }
