@@ -48,7 +48,11 @@ public class RoomController {
 
     @PostMapping("/addUser")
     public void addUserToRoom(@RequestBody RoomWithUser roomWithUser) {
-        usersToRoomsRepository.save(roomWithUser);
+        addUserToRoomIfNotExist(roomWithUser);
+        sendUserToRoom(roomWithUser);
+    }
+
+    private void sendUserToRoom(RoomWithUser roomWithUser) {
         try {
             restService.sendUserToRoom(
                     roomRepository.getById(roomWithUser.getRoom()),
@@ -56,6 +60,12 @@ public class RoomController {
             );
         } catch (FirebaseMessagingException e) {
             log.warn("Error sending user joined room", e);
+        }
+    }
+
+    private void addUserToRoomIfNotExist(RoomWithUser roomWithUser) {
+        if(!usersToRoomsRepository.exists(Example.of(roomWithUser))) {
+            usersToRoomsRepository.save(roomWithUser);
         }
     }
 
