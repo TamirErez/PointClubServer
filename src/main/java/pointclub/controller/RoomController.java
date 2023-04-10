@@ -3,7 +3,9 @@ package pointclub.controller;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
+import pointclub.entity.Message;
 import pointclub.entity.Room;
 import pointclub.entity.RoomWithUser;
 import pointclub.entity.User;
@@ -72,5 +74,10 @@ public class RoomController {
     @PostMapping("/users")
     public Set<User> getRoomUsers(@RequestBody Room room) {
         return roomRepository.getById(room.getServerId()).getUsers();
+    }
+
+    @PostMapping("/messages")
+    public Set<Message> getRoomMessages(@RequestBody Room room) {
+        return roomRepository.getById(room.getServerId()).getMessages();
     }
 }

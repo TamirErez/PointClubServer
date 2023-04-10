@@ -28,6 +28,12 @@ public class Room {
     @ToString.Exclude
     private Set<User> users = new LinkedHashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "room")
+    @JsonIgnore
+    @ToString.Exclude
+    private Set<Message> messages = new LinkedHashSet<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
