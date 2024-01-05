@@ -1,4 +1,4 @@
-package pointclub.entity.primarykey;
+package pointclub.entity.chat.primarykey;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

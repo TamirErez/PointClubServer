@@ -3,7 +3,7 @@ package pointclub.controller;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pointclub.entity.Message;
+import pointclub.entity.chat.Message;
 import pointclub.repository.MessageRepository;
 import pointclub.service.restservice.RestService;
 

@@ -5,13 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
-import pointclub.entity.Message;
-import pointclub.entity.Room;
-import pointclub.entity.RoomWithUser;
+import pointclub.entity.chat.Message;
+import pointclub.entity.chat.ChatRoom;
+import pointclub.entity.chat.ChatRoomWithUser;
 import pointclub.entity.User;
-import pointclub.repository.RoomRepository;
+import pointclub.repository.ChatRoomRepository;
 import pointclub.repository.UserRepository;
-import pointclub.repository.UsersToRoomsRepository;
+import pointclub.repository.UsersToChatRoomsRepository;
 import pointclub.service.restservice.RestService;
 
 import java.util.List;
@@ -22,62 +22,62 @@ import java.util.Set;
 @RequestMapping("room")
 public class RoomController {
     @Autowired
-    private RoomRepository roomRepository;
+    private ChatRoomRepository chatRoomRepository;
     @Autowired
-    private UsersToRoomsRepository usersToRoomsRepository;
+    private UsersToChatRoomsRepository usersToChatRoomsRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private RestService restService;
 
     @GetMapping
-    public List<Room> getAllRooms() {
-        return roomRepository.findAll();
+    public List<ChatRoom> getAllChatRooms() {
+        return chatRoomRepository.findAll();
     }
 
     @PostMapping("add")
-    public int addRoom(@RequestBody Room newRoom) {
-        return roomRepository.save(newRoom).getServerId();
+    public int addChatRoom(@RequestBody ChatRoom newChatRoom) {
+        return chatRoomRepository.save(newChatRoom).getServerId();
     }
 
     @PostMapping("remove")
-    public void removeRoom(@RequestBody Room roomToRemove) {
-        if (roomToRemove.getServerId() == 0) {
+    public void removeChatRoom(@RequestBody ChatRoom chatRoomToRemove) {
+        if (chatRoomToRemove.getServerId() == 0) {
             throw new RuntimeException("Room id cannot be null on delete");
         }
-        roomRepository.deleteById(roomToRemove.getServerId());
+        chatRoomRepository.deleteById(chatRoomToRemove.getServerId());
     }
 
     @PostMapping("/addUser")
-    public void addUserToRoom(@RequestBody RoomWithUser roomWithUser) {
-        addUserToRoomIfNotExist(roomWithUser);
-        sendUserToRoom(roomWithUser);
+    public void addUserToChatRoom(@RequestBody ChatRoomWithUser chatRoomWithUser) {
+        addUserToRoomIfNotExist(chatRoomWithUser);
+        sendUserToRoom(chatRoomWithUser);
     }
 
-    private void sendUserToRoom(RoomWithUser roomWithUser) {
+    private void sendUserToRoom(ChatRoomWithUser chatRoomWithUser) {
         try {
             restService.sendUserToRoom(
-                    roomRepository.getById(roomWithUser.getRoom()),
-                    userRepository.getById(roomWithUser.getUser())
+                    chatRoomRepository.getById(chatRoomWithUser.getRoom()),
+                    userRepository.getById(chatRoomWithUser.getUser())
             );
         } catch (FirebaseMessagingException e) {
             log.warn("Error sending user joined room", e);
         }
     }
 
-    private void addUserToRoomIfNotExist(RoomWithUser roomWithUser) {
-        if(!usersToRoomsRepository.exists(Example.of(roomWithUser))) {
-            usersToRoomsRepository.save(roomWithUser);
+    private void addUserToRoomIfNotExist(ChatRoomWithUser chatRoomWithUser) {
+        if(!usersToChatRoomsRepository.exists(Example.of(chatRoomWithUser))) {
+            usersToChatRoomsRepository.save(chatRoomWithUser);
         }
     }
 
     @PostMapping("/users")
-    public Set<User> getRoomUsers(@RequestBody Room room) {
-        return roomRepository.getById(room.getServerId()).getUsers();
+    public Set<User> getChatRoomUsers(@RequestBody ChatRoom chatRoom) {
+        return chatRoomRepository.getById(chatRoom.getServerId()).getUsers();
     }
 
     @PostMapping("/messages")
-    public Set<Message> getRoomMessages(@RequestBody Room room) {
-        return roomRepository.getById(room.getServerId()).getMessages();
+    public Set<Message> getChatRoomMessages(@RequestBody ChatRoom chatRoom) {
+        return chatRoomRepository.getById(chatRoom.getServerId()).getMessages();
     }
 }

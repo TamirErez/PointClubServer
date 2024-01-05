@@ -3,6 +3,7 @@ package pointclub.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
+import pointclub.entity.chat.ChatRoom;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -26,7 +27,7 @@ public class User {
     @ManyToMany(mappedBy = "users")
     @JsonIgnore
     @ToString.Exclude
-    private Set<Room> rooms = new LinkedHashSet<>();
+    private Set<ChatRoom> charRooms = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

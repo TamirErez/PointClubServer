@@ -1,10 +1,11 @@
-package pointclub.entity;
+package pointclub.entity.chat;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import pointclub.entity.User;
 import pointclub.serializer.MessageSerializer;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Message {
     @Column(name = "id")
     private int serverId;
 
+    //TODO: define custom length
     private String content;
 
     @ManyToOne
@@ -31,7 +33,7 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "room", referencedColumnName = "id")
-    private Room room;
+    private ChatRoom chatRoom;
 
     private Date sendTime;
 }

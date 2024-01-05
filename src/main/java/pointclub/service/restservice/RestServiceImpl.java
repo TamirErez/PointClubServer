@@ -6,10 +6,10 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.MulticastMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pointclub.entity.Message;
-import pointclub.entity.Room;
+import pointclub.entity.chat.Message;
+import pointclub.entity.chat.ChatRoom;
 import pointclub.entity.User;
-import pointclub.repository.RoomRepository;
+import pointclub.repository.ChatRoomRepository;
 import pointclub.repository.UserRepository;
 
 import java.util.Collection;
@@ -19,14 +19,14 @@ import java.util.stream.Collectors;
 public class RestServiceImpl implements RestService {
 
     @Autowired
-    private RoomRepository roomRepository;
+    private ChatRoomRepository chatRoomRepository;
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public void postToRoom(Message message) throws FirebaseMessagingException {
 
-        Collection<String> userTokensOfRoom = getUserTokensOfRoom(message.getRoom().getServerId(), message.getSender());
+        Collection<String> userTokensOfRoom = getUserTokensOfRoom(message.getChatRoom().getServerId(), message.getSender());
         if (userTokensOfRoom.size() == 0) {
             System.out.println("Error Posting Message to Room: No Tokens Were Found");
             return;
@@ -44,8 +44,8 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
-    public void sendUserToRoom(Room room, User user) throws FirebaseMessagingException {
-        Collection<String> userTokens = getUserTokensOfRoom(room.getServerId(), user);
+    public void sendUserToRoom(ChatRoom chatRoom, User user) throws FirebaseMessagingException {
+        Collection<String> userTokens = getUserTokensOfRoom(chatRoom.getServerId(), user);
         if (userTokens.size() == 0) {
             System.out.println("Error Sending User: No Tokens Were Found");
             return;
@@ -66,7 +66,7 @@ public class RestServiceImpl implements RestService {
     }
 
     private Collection<String> getUserTokensOfRoom(int roomId, User sender) {
-        return getUserTokensWithoutSender(roomRepository.getById(roomId).getUsers(), sender);
+        return getUserTokensWithoutSender(chatRoomRepository.getById(roomId).getUsers(), sender);
 
     }
 

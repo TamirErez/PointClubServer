@@ -1,10 +1,10 @@
-package pointclub.entity;
+package pointclub.entity.chat;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import pointclub.entity.primarykey.RoomWithUserPK;
+import pointclub.entity.chat.primarykey.RoomWithUserPK;
 
 import javax.persistence.*;
 
@@ -14,8 +14,8 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @IdClass(RoomWithUserPK.class)
-@Table(name = "users_rooms")
-public class RoomWithUser {
+@Table(name = "users_chat_rooms")
+public class ChatRoomWithUser {
     @Id
     @Column(name = "room_id")
     private int room;
