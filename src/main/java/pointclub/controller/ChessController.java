@@ -68,6 +68,11 @@ public class ChessController {
         chessRoomRepository.save(room);
     }
 
+    @GetMapping()
+    public List<ChessRoom> getAllRooms() {
+        return chessRoomRepository.findAll();
+    }
+
     @PostMapping("move")
     public void move(@RequestBody ChessMove move) {
         ChessGame chessGame = chessGameRepository.getById(move.chessGameId);
