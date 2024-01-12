@@ -10,6 +10,7 @@ import pointclub.entity.chess.ChessGame;
 import pointclub.entity.User;
 import pointclub.entity.chess.ChessRoom;
 import pointclub.entity.chess.MoveHistory;
+import pointclub.exception.ChessGameFullException;
 import pointclub.repository.ChessGameRepository;
 import pointclub.repository.ChatRoomRepository;
 import pointclub.repository.ChessRoomRepository;
@@ -51,6 +52,9 @@ public class ChessController {
     @PostMapping("join")
     public void join(@RequestBody ChessUser chessUser) {
         ChessRoom room = chessRoomRepository.getById(chessUser.chessRoomId);
+        if (room.getWhite() != null && room.getBlack() != null){
+            throw new ChessGameFullException();
+        }
         if(room.getWhite() != null){
             room.setBlack(chessUser.user);
         } else if (room.getBlack() != null) {
