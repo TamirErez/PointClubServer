@@ -1,9 +1,6 @@
 package pointclub.entity.chat;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import pointclub.entity.chat.primarykey.RoomWithUserPK;
 
 import javax.persistence.*;
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @IdClass(RoomWithUserPK.class)
 @Table(name = "users_chat_rooms")

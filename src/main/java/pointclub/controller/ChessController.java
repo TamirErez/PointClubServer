@@ -3,38 +3,49 @@ package pointclub.controller;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pointclub.entity.chat.ChatRoom;
+import pointclub.entity.chat.ChatRoomWithUser;
 import pointclub.entity.chess.ChessGame;
 import pointclub.entity.User;
 import pointclub.entity.chess.ChessRoom;
 import pointclub.entity.chess.MoveHistory;
 import pointclub.repository.ChessGameRepository;
+import pointclub.repository.ChatRoomRepository;
 import pointclub.repository.ChessRoomRepository;
 import pointclub.repository.MoveHistoryRepository;
+import pointclub.service.ChatService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("chess")
 public class ChessController {
 
     @Autowired
-    ChessGameRepository chessGameRepository;
+    private ChessGameRepository chessGameRepository;
     @Autowired
-    ChessRoomRepository chessRoomRepository;
+    private ChessRoomRepository chessRoomRepository;
     @Autowired
-    MoveHistoryRepository moveHistoryRepository;
+    private ChatRoomRepository chatRoomRepository;
+    @Autowired
+    private MoveHistoryRepository moveHistoryRepository;
+    @Autowired
+    private ChatService chatService;
 
     @PostMapping("create")
     public int create() {
         ChessGame chessGame = new ChessGame();
-        ChessRoom chessRoom = new ChessRoom();
-        chessRoom.setChessGame(chessGame);
-        int chessRoomId = chessRoomRepository.save(chessRoom).getId();
         chessGameRepository.save(chessGame);
 
-        return chessRoomId;
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoomRepository.save(chatRoom);
+
+        ChessRoom chessRoom = new ChessRoom();
+        chessRoom.setChessGame(chessGame);
+        chessRoom.setChatRoom(chatRoom);
+
+        return chessRoomRepository.save(chessRoom).getId();
     }
 
     @PostMapping("join")
@@ -48,6 +59,8 @@ public class ChessController {
         else {
             setChessFirstUser(room, chessUser.user);
         }
+
+        chatService.addUserToChatRoom(new ChatRoomWithUser(room.getChatRoom().getServerId(), chessUser.getUser().getServerId()));
         chessRoomRepository.save(room);
     }
 
